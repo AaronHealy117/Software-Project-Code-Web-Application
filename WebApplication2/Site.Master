@@ -1,0 +1,178 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebApplication2.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> Kryptium</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="/Images/main_icon.png" rel="shortcut icon" type="image/x-icon" />
+
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="respond" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <div class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container">
+                <div class="navbar-header" >
+                    <a class="navbar-brand" runat="server" style="color:#d24958;" href="/Views/Index/Index.aspx">Kryptium</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" style="color:#d24958;" href="/Views/Index/Index.aspx">Home</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#features" style="color:#d24958;">Features</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#aboutUs" style="color:#d24958;">About Us</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" style="color:#d24958;" href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav" id="loggedOutUser">
+                        <li class="nav-item">
+                            <a class="nav-link" style="color:#d24958;" href="/Views/LoginRegister/Login.aspx">Login</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav" id="isUser">
+                        <li class="nav-item">
+                            <a class="nav-link" style="color:crimson;" href="/Views/UserPages/UserIndex.aspx">Your Account</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyBJ161qmpslU7rD-4hdHNMXIzztVIbSJvg",
+                authDomain: "softwareproject-b1a79.firebaseapp.com",
+                databaseURL: "https://softwareproject-b1a79.firebaseio.com",
+                projectId: "softwareproject-b1a79",
+                storageBucket: "softwareproject-b1a79.appspot.com",
+                messagingSenderId: "271991045716"
+            };
+            firebase.initializeApp(config);
+        </script>
+
+        <script>
+
+            firebase.auth().onAuthStateChanged(function (user) {
+                if (user) {
+                    document.getElementById('isUser').style.display = 'inline';
+                    document.getElementById('loggedOutUser').style.display = 'none';
+
+                } else {
+                    document.getElementById('isUser').style.display = 'none';
+                    document.getElementById('loggedOutUser').style.display = 'inline';
+                }
+
+            });
+
+        </script>
+        <div class=" body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+           
+            <footer>
+
+                <div class="row" style="background-image: url(/Images/footer_lodyas.png);">
+
+                    <div class="col-md-1"></div>
+
+                    <div class="col-md-2">
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <img src="/images/main_icon.png" alt="Logo" style="height:150px; width:150px;">
+                        <br />
+                        <br />
+                        <h4 style="color:silver; margin-left:15px;">KRYPTIUM</h4>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <h4 class="text-left text-silver">SECURE</h4>
+                        <br />
+                        <h4 class="text-left text-silver">INSECURE</h4>
+                        <br />
+                        <h4 class="text-left text-silver">ABOUT</h4>
+                        <br />
+                        <h4 class="text-left text-silver">INFO</h4>
+                    </div>
+                    <div class="col-md-4">
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <h4 class="text-left text-silver">NEWSLETTER SIGNUP</h4>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-1"></div>
+                </div>
+
+
+
+                <div class="row" style="background-image: url(/Images/footer_lodyas.png);">
+
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <br />
+                        <br />
+                        <p class="text-center text-silver">@Copyright. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+            </footer>
+        </div>
+
+    </form>
+</body>
+</html>
